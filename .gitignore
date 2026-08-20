@@ -1,0 +1,15 @@
+node_modules
+
+.agents
+Define
+Deployment
+Design
+Development
+dist
+
+
+.env
+.env.example
+
+AGENTS.md
+GEMINI.md

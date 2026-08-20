@@ -4,42 +4,47 @@ All code in this project must strictly adhere to the steering rules defined in [
 
 ## Core Architectural Rules
 
-1. **MVVM Pattern**:
-   - **Model**: Domain entities & types only (React-independent, no API calls, no JSX).
+1. **MVVM Pattern with Service-Level BO & DTO**:
+   - **Data Transfer Objects (DTO)**: Wire contracts (`src/services/<Service>/dto/`).
+   - **Business Objects (BO)**: UI domain models & business logic (`src/services/<Service>/bo/`).
    - **Service Interface / Implementation**: Abstracted services (`UserService.interface.ts`, `UserService.ts`, `MockUserService.ts`).
    - **ApiClient**: Centralized Axios client (`ApiClient.ts`) with request/response interceptors.
-   - **ViewModel**: UI state, UI business logic, service calls, data transformation, validation (`*.vm.ts`). **No JSX or DOM access in ViewModels**.
+   - **ViewModel**: UI state, UI business logic, service calls, data transformation, validation (`*.vm.ts`). **Zero mock data hardcoded in ViewModels** — all data must flow from Mock/API services. **No JSX or DOM access in ViewModels**.
    - **View**: Presentation and binding only (`*.tsx`). **No direct API calls, no Axios, no business logic in Views**.
 
-2. **Strict Dependency Flow**:
-   `View` → `ViewModel` → `Service Interface` → `Service Implementation` → `ApiClient` → `Axios` → `API`.
+2. **Mandatory Mobile + Web View Responsive UI**:
+   - **All UI components and screens must be fully responsive** across Mobile (<640px), Tablet (640-1024px), Laptop (1024-1280px), and Desktop (>1280px).
+   - Use Tailwind responsive utility prefixes (`sm:`, `md:`, `lg:`, `xl:`, `2xl:`), flexible layouts, and touch-friendly targets (minimum 44x44px).
+
+3. **Strict Dependency Flow**:
+   `View` → `ViewModel` → `Service Interface` → `Service Implementation` (transforms DTO &harr; BO) → `ApiClient` → `Axios` → `API`.
    *Reverse or direct bypass dependencies (e.g. View → Axios, ViewModel → Axios, View → Service) are strictly prohibited.*
 
-3. **Styling with Tailwind CSS (Mandatory)**:
+4. **Styling with Tailwind CSS (Mandatory)**:
    - **Must use Tailwind CSS** for all UI components, screens, layouts, utilities, animations, and responsive designs.
    - Ad-hoc vanilla CSS files and inline style overrides are prohibited where Tailwind utilities apply.
 
-4. **Strict TypeScript & Zero `any` Policy (Mandatory)**:
-   - **Must use TypeScript** across all source files, models, services, ViewModels, Views, and tests.
+5. **Strict TypeScript & Zero `any` Policy (Mandatory)**:
+   - **Must use TypeScript** across all source files, BOs, DTOs, services, ViewModels, Views, and tests.
    - **Never declare `any`** (`no-explicit-any`). Always use explicit types, interfaces, generics, discriminated unions, or `unknown` with runtime type narrowing / type guards.
 
-5. **Naming & Structure**:
+6. **Naming & Structure**:
    - Files & Folders: **PascalCase** (`UserProfile.tsx`, `UserProfile.vm.ts`, `UserProfile.test.tsx`, `Button/`, `UserProfile/`).
    - Variables & Functions: **camelCase** (`isLoading`, `getUserProfile()`, `handleSubmit()`).
-   - Types, Interfaces, Classes: **PascalCase** (`UserProfile`, `UserServiceInterface`).
+   - Types, Interfaces, Classes: **PascalCase** (`UserProfileBo`, `UserProfileDto`, `UserServiceInterface`).
    - Constants: `UPPER_SNAKE_CASE` for global configs, `camelCase` for local constants.
 
-6. **Component Hierarchy**:
+7. **Component Hierarchy**:
    - `src/UI/reusable/base/` (Generic: Button, Input, Modal, Loader)
    - `src/UI/reusable/feature/` (Feature-specific: UserSelector, SearchFilter)
    - `src/UI/screens/` (Screen-level modules)
 
-7. **Centralized Infrastructure**:
+8. **Centralized Infrastructure**:
    - `src/config/`: Centralized environment configuration (`config.api.baseUrl`).
    - `src/helpers/Logger.ts`: Centralized logging (`logger.info`, `logger.error`). No scattered `console.log`.
    - `src/UI/reusable/base/ErrorBoundary/`: Reusable ErrorBoundary integrated with centralized routing.
 
-8. **Testing & Validation**:
+9. **Testing & Validation**:
    - Every screen and reusable component must have a corresponding `.test.tsx` file.
    - Mock services must implement the same interface as production services for testability.
    - Always run TypeScript checks (`tsc --noEmit`) and linting before completing work with zero `any` and zero type errors.

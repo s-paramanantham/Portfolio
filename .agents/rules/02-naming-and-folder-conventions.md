@@ -12,28 +12,32 @@ All source files must use **PascalCase**.
 - Service: `UserService.ts`
 - Service Interface: `UserService.interface.ts`
 - Mock Service: `MockUserService.ts`
+- DTO: `UserProfile.dto.ts`
+- BO: `UserProfile.bo.ts`
 - Infrastructure: `ApiClient.ts`, `ErrorBoundary.tsx`, `Logger.ts`, `Config.ts`
-- Models: `UserProfile.model.ts`, `Project.model.ts`
 
 *Never use kebab-case (`user-profile.tsx`), lower camelCase (`userProfile.tsx`), or snake_case (`user_profile.tsx`).*
 
 ## 2. Folder Naming (PascalCase)
 
-Component and module directories must use **PascalCase**.
+Component, module, and service directories must use **PascalCase** (subdirectories like `dto/` and `bo/` use lowercase).
 - `src/UI/screens/UserProfile/`
 - `src/UI/reusable/base/Button/`
 - `src/UI/reusable/feature/UserSelector/`
+- `src/services/PortfolioService/`
+  - `src/services/PortfolioService/dto/`
+  - `src/services/PortfolioService/bo/`
 
 ## 3. Variable & Function Naming (camelCase)
 
-- Variables: `const userProfile: UserProfile = ...`, `const selectedUserId: string = ...`
+- Variables: `const userProfile: UserProfileBo = ...`, `const selectedUserId: string = ...`
 - Booleans: Must communicate clear intent: `isLoading`, `isAuthenticated`, `hasPermission`, `canSubmit`, `shouldRefresh`.
 - Functions: `getUserProfile()`, `updateUserProfile()`, `loadDashboard()`, `validateUser()`.
 - Event Handlers: `handle` + Action (`handleSubmit()`, `handleDelete()`, `handleSearch()`).
 
 ## 4. Types, Interfaces, Enums, & Classes (PascalCase)
 
-- Examples: `UserProfile`, `UserProfileResponse`, `UserService`, `UserServiceInterface`, `ApplicationConfig`.
+- Examples: `UserProfileBo`, `UserProfileDto`, `UserService`, `UserServiceInterface`, `ApplicationConfig`.
 - **Zero `any`**: All types must be explicitly defined. Never use `any` as a type or fallback.
 
 ## 5. Constants
@@ -47,14 +51,26 @@ Component and module directories must use **PascalCase**.
 src/
 ├── helpers/                   # Independent utility functions & Logger.ts
 ├── config/                    # Environment & runtime configuration
-├── services/                  # Service interfaces, implementations & mocks
 ├── apiclient/                 # Centralized Axios client & interceptors
-├── models/                    # Domain models & TypeScript interfaces (zero any)
+├── services/                  # Service interfaces, implementations, mocks, DTOs & BOs
+│   ├── PortfolioService/
+│   │   ├── PortfolioService.interface.ts
+│   │   ├── PortfolioApiService.ts
+│   │   ├── MockPortfolioService.ts
+│   │   ├── dto/
+│   │   └── bo/
+│   ├── ContactService/
+│   │   ├── ContactService.interface.ts
+│   │   ├── ContactApiService.ts
+│   │   ├── MockContactService.ts
+│   │   ├── dto/
+│   │   └── bo/
+│   └── ServiceFactory.ts
 ├── UI/
 │   ├── screens/               # Screen-level modules (e.g. UserProfile/)
 │   │   └── UserProfile/
-│   │       ├── UserProfile.tsx        # Styled with Tailwind CSS
-│   │       ├── UserProfile.vm.ts      # ViewModel with strict TypeScript
+│   │       ├── UserProfile.tsx        # Styled with Tailwind CSS (Mobile + Web Responsive)
+│   │       ├── UserProfile.vm.ts      # ViewModel with strict TypeScript (Zero mock data)
 │   │       └── UserProfile.test.tsx
 │   │
 │   └── reusable/

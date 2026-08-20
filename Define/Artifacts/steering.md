@@ -27,13 +27,15 @@ These rules are mandatory unless explicitly overridden by the project owner.
 The application must follow:
 
 ```text
-Model
-   ↓
-Service / Repository
-   ↓
-ViewModel
-   ↓
-View
+DTO (Data Transfer Object) ──[Network / API Wire Shape]
+       ↓
+BO (Business Object)       ──[Domain Model & Business Rules]
+       ↓
+Service / Repository       ──[Interface & Implementations]
+       ↓
+ViewModel                  ──[UI State, Actions & Orchestration]
+       ↓
+View                       ──[Presentation & User Binding with Tailwind CSS]
 ```
 
 The View must not directly communicate with APIs or contain business logic.
@@ -42,7 +44,7 @@ The View must not directly communicate with APIs or contain business logic.
 
 The View is responsible for:
 
-* Rendering UI using **Tailwind CSS** classes
+* Rendering UI using **Tailwind CSS** classes with **full Mobile + Web responsive design**
 * Receiving user interactions
 * Binding UI state from ViewModel
 * Calling ViewModel actions
@@ -60,7 +62,8 @@ The ViewModel is responsible for:
 * UI-related state
 * Application logic
 * Business logic required by the screen
-* Calling services
+* Calling services to retrieve data
+* **Zero mock data hardcoded in ViewModels** — all mock fixtures must reside in `Mock<ServiceName>.ts`
 * Transforming service responses into UI-friendly data
 * Loading state management
 * Error state management
@@ -70,17 +73,14 @@ The ViewModel is responsible for:
 
 The ViewModel must not contain JSX, CSS/Tailwind classes, or DOM manipulation.
 
-## Model
+## Service-Level BO and DTO Architecture
 
-The Model is responsible for:
+Domain entities are organized inside each respective service folder:
 
-* Domain entities
-* Data structures
-* Type definitions & strict TypeScript interfaces
-* Request/response contracts
-* Domain-level representations
-
-Models must not depend on React or contain `any` types.
+* **DTO (`src/services/<ServiceName>/dto/<Entity>.dto.ts`)**: Represents raw network/API request and response payload shapes.
+* **BO (`src/services/<ServiceName>/bo/<Entity>.bo.ts`)**: Represents the rich domain business objects and client models consumed by ViewModels and Views, including mapper methods (`toBo()`, `toDto()`).
+* Services transform incoming DTOs into BOs for ViewModel consumption.
+* Standalone root `models/` folders are replaced by this Service-level BO/DTO structure for cohesive domain encapsulation.
 
 ---
 
@@ -137,7 +137,11 @@ All UI styling in the application must strictly use **Tailwind CSS**.
 * **Prohibited**: Inline `style={{ ... }}` attributes, except for dynamic computed runtime properties (e.g. cursor mouse coordinates on canvas).
 * **Theme Tokens**: Colors, fonts, shadows, and custom animations must be defined in `tailwind.config.js` and referenced via standard Tailwind classes (e.g. `bg-slate-900`, `text-indigo-400`, `border-slate-800`).
 * **Dark Mode**: Must utilize Tailwind's dark class or dark-first classes (`dark:...` or dark-first default theme).
-* **Responsive Design**: Must utilize Tailwind responsive prefixes (`sm:`, `md:`, `lg:`, `xl:`, `2xl:`).
+* **Mandatory Mobile + Web Responsive Design**: Every screen and component must provide first-class responsive user experiences across all viewport tiers:
+  * Mobile (<640px): Single-column layouts, touch targets >= 44x44px, hamburger drawer navigation, collapsible accordions.
+  * Tablet (640px – 1024px): 2-column grids, optimized spacing.
+  * Laptop / Desktop (>1024px): Multi-column grids, rich hover interactions, full horizontal navigation.
+  * Must utilize Tailwind responsive utility prefixes (`sm:`, `md:`, `lg:`, `xl:`, `2xl:`). All layouts must prevent unwanted horizontal overflow.
 
 ---
 
@@ -399,9 +403,17 @@ root/
 └── src/
     ├── helpers/
     ├── config/
-    ├── services/
     ├── apiclient/
-    ├── models/
+    ├── services/
+    │   ├── <ServiceName>/
+    │   │   ├── <ServiceName>.interface.ts
+    │   │   ├── <ServiceName>ApiService.ts
+    │   │   ├── Mock<ServiceName>.ts
+    │   │   ├── dto/
+    │   │   │   └── <Entity>.dto.ts
+    │   │   └── bo/
+    │   │       └── <Entity>.bo.ts
+    │   └── ServiceFactory.ts
     │
     ├── UI/
     │   ├── screens/
@@ -455,8 +467,9 @@ Contains:
 
 * Screen state (strictly typed, zero `any`)
 * Application logic
-* Service calls
-* Data transformation
+* Service calls to retrieve data
+* **Zero mock data hardcoded in ViewModels** — all mock data must come from `Mock<ServiceName>.ts`
+* Data transformation (DTO ↔ BO)
 * Validation
 * UI actions
 
