@@ -6,6 +6,7 @@ Deployment
 Design
 Development
 dist
+coverage
 
 
 .env

@@ -6,11 +6,10 @@ export interface UseHomeScreenViewModelReturn {
 }
 
 export const useHomeScreenViewModel = (): UseHomeScreenViewModelReturn => {
-  const [isInitialized, setIsInitialized] = useState<boolean>(false);
+  const [isInitialized] = useState<boolean>(true);
 
   useEffect(() => {
     Logger.info('HomeScreen initialized successfully');
-    setIsInitialized(true);
   }, []);
 
   return {

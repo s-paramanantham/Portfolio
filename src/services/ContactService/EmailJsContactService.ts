@@ -67,7 +67,7 @@ export class EmailJsContactService implements ContactServiceInterface {
           : typeof error === 'object' && error !== null && 'text' in error
           ? String((error as { text?: unknown }).text)
           : 'Failed to send message via EmailJS.';
-      throw new Error(errorMessage);
+      throw new Error(errorMessage, { cause: error });
     }
   }
 }

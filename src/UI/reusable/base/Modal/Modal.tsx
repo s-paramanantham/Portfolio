@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import { useModalViewModel } from './Modal.vm';
@@ -20,15 +20,10 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   maxWidth = '2xl',
 }) => {
-  const [mounted, setMounted] = useState(false);
   const { handleBackdropClick, handleContainerClick } = useModalViewModel({
     isOpen,
     onClose,
   });
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   if (!isOpen) return null;
 
@@ -94,7 +89,7 @@ export const Modal: React.FC<ModalProps> = ({
     </div>
   );
 
-  if (mounted && typeof document !== 'undefined') {
+  if (typeof document !== 'undefined') {
     return createPortal(modalContent, document.body);
   }
 

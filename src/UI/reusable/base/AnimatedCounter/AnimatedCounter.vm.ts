@@ -14,7 +14,12 @@ export const useAnimatedCounterViewModel = (
   props: UseAnimatedCounterViewModelProps
 ): UseAnimatedCounterViewModelReturn => {
   const { targetValue, durationMs = 1500 } = props;
-  const [count, setCount] = useState<number>(0);
+  const [count, setCount] = useState<number>(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return targetValue;
+    }
+    return 0;
+  });
   const elementRef = useRef<HTMLSpanElement>(null);
   const hasAnimatedRef = useRef<boolean>(false);
 
@@ -24,13 +29,11 @@ export const useAnimatedCounterViewModel = (
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {
-      setCount(targetValue);
       return;
     }
 
     const element = elementRef.current;
     if (!element) {
-      setCount(targetValue);
       return;
     }
 
