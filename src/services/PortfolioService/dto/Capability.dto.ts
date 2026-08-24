@@ -1,6 +1,7 @@
 export type CapabilityCategoryTypeDto =
   | 'Frontend Engineering'
   | 'Backend Engineering'
+  | '3rd-Party & Healthcare Ecosystems'
   | 'Databases & Storage'
   | 'Cloud & DevOps'
   | 'Real-Time & AI Systems'

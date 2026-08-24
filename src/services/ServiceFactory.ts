@@ -6,9 +6,16 @@ import { ContactServiceInterface } from './ContactService/ContactService.interfa
 import { MockContactService } from './ContactService/MockContactService';
 import { EmailJsContactService } from './ContactService/EmailJsContactService';
 
+import { ThemeServiceInterface } from './ThemeService/ThemeService.interface';
+import { ThemeService } from './ThemeService/ThemeService';
+import { AiChatServiceInterface } from './AiChatService/AiChatService.interface';
+import { AiChatService } from './AiChatService/AiChatService';
+
 export class ServiceFactory {
   private static portfolioServiceInstance: PortfolioServiceInterface | null = null;
   private static contactServiceInstance: ContactServiceInterface | null = null;
+  private static themeServiceInstance: ThemeServiceInterface | null = null;
+  private static aiChatServiceInstance: AiChatServiceInterface | null = null;
 
   public static getPortfolioService(): PortfolioServiceInterface {
     if (!this.portfolioServiceInstance) {
@@ -32,8 +39,26 @@ export class ServiceFactory {
     return this.contactServiceInstance;
   }
 
+  public static getThemeService(): ThemeServiceInterface {
+    if (!this.themeServiceInstance) {
+      this.themeServiceInstance = ThemeService.getInstance();
+    }
+    return this.themeServiceInstance;
+  }
+
+  public static getAiChatService(): AiChatServiceInterface {
+    if (!this.aiChatServiceInstance) {
+      this.aiChatServiceInstance = AiChatService.getInstance();
+    }
+    return this.aiChatServiceInstance;
+  }
+
   public static reset(): void {
     this.portfolioServiceInstance = null;
     this.contactServiceInstance = null;
+    this.themeServiceInstance = null;
+    this.aiChatServiceInstance = null;
+    ThemeService.reset();
+    AiChatService.reset();
   }
 }

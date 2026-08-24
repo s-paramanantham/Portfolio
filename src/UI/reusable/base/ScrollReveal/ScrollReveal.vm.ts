@@ -69,24 +69,24 @@ export const useScrollRevealViewModel = (
   const getHiddenClasses = (): string => {
     switch (direction) {
       case 'left':
-        return 'opacity-0 -translate-x-16 sm:-translate-x-24 scale-95 blur-[2px]';
+        return 'opacity-0 -translate-x-12 sm:-translate-x-16 scale-95';
       case 'right':
-        return 'opacity-0 translate-x-16 sm:translate-x-24 scale-95 blur-[2px]';
+        return 'opacity-0 translate-x-12 sm:translate-x-16 scale-95';
       case 'boom':
-        return 'opacity-0 scale-75 blur-[4px]';
+        return 'opacity-0 scale-90';
       case 'top':
-        return 'opacity-0 -translate-y-16 scale-95 blur-[2px]';
+        return 'opacity-0 -translate-y-12 scale-95';
       case 'bottom':
       default:
-        return 'opacity-0 translate-y-16 sm:translate-y-20 scale-90 blur-[2px]';
+        return 'opacity-0 translate-y-12 sm:translate-y-16 scale-95';
     }
   };
 
   const getVisibleClasses = (): string => {
-    return 'opacity-100 translate-x-0 translate-y-0 scale-100 blur-0';
+    return 'opacity-100 translate-x-0 translate-y-0 scale-100';
   };
 
-  const containerClasses = `transition-all will-change-transform ${
+  const containerClasses = `transition-all will-change-[transform,opacity] ${
     isVisible ? getVisibleClasses() : getHiddenClasses()
   }`.trim();
 

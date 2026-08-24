@@ -37,20 +37,20 @@ export const ExperienceIntroSection: React.FC<ExperienceIntroSectionProps> = ({
               </Badge>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
               Proven execution across{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-emerald-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-indigo-600 to-emerald-600 dark:from-cyan-400 dark:via-indigo-400 dark:to-emerald-400">
                 AVASOFT &amp; ZEB
               </span>
             </h2>
 
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
               {experienceIntro.narrative}
             </p>
 
-            <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 flex items-start gap-3">
-              <Shield className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
-              <p className="text-xs sm:text-sm text-slate-300">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 flex items-start gap-3">
+              <Shield className="w-5 h-5 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5" />
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300">
                 {experienceIntro.architectureSummary}
               </p>
             </div>
@@ -61,14 +61,14 @@ export const ExperienceIntroSection: React.FC<ExperienceIntroSectionProps> = ({
             {experienceIntro.metrics.map((m) => (
               <div
                 key={m.label}
-                className="p-5 rounded-2xl bg-slate-950/70 border border-slate-800/90 hover:border-cyan-500/40 transition-all group flex flex-col justify-between"
+                className="p-5 rounded-2xl bg-white dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800/90 hover:border-cyan-400 dark:hover:border-cyan-500/40 shadow-sm dark:shadow-none transition-all group flex flex-col justify-between"
               >
-                <div className="text-2xl sm:text-3xl font-extrabold font-mono text-cyan-400 group-hover:scale-105 transition-transform origin-left">
+                <div className="text-2xl sm:text-3xl font-extrabold font-mono text-cyan-600 dark:text-cyan-400 group-hover:scale-105 transition-transform origin-left">
                   <AnimatedCounter value={m.value} suffix={m.suffix} />
                 </div>
                 <div className="mt-2">
-                  <span className="text-xs font-bold text-white block">{m.label}</span>
-                  <span className="text-[11px] text-slate-400">{m.subtext}</span>
+                  <span className="text-xs font-bold text-slate-900 dark:text-white block">{m.label}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400">{m.subtext}</span>
                 </div>
               </div>
             ))}

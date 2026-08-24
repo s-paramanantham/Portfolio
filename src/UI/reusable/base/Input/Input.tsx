@@ -30,7 +30,7 @@ export const Input: React.FC<InputProps> = ({
       {label && (
         <label
           htmlFor={inputId}
-          className="text-xs font-semibold text-slate-300 tracking-wider uppercase"
+          className="text-xs font-semibold text-slate-700 dark:text-slate-300 tracking-wider uppercase"
         >
           {label}
         </label>
@@ -44,12 +44,12 @@ export const Input: React.FC<InputProps> = ({
         {...restProps}
       />
       {error && (
-        <span id={errorId} className="text-xs font-medium text-red-400 mt-0.5" role="alert">
+        <span id={errorId} className="text-xs font-medium text-red-500 dark:text-red-400 mt-0.5" role="alert">
           {error}
         </span>
       )}
       {!error && helperText && (
-        <span id={helperId} className="text-xs text-slate-400 mt-0.5">
+        <span id={helperId} className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
           {helperText}
         </span>
       )}

@@ -53,29 +53,29 @@ export const Modal: React.FC<ModalProps> = ({
       aria-modal="true"
       aria-labelledby={title ? 'modal-title' : undefined}
       onClick={handleBackdropClick}
-      className="fixed inset-0 z-[9990] flex items-center justify-center p-4 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-fadeIn overflow-y-auto"
+      className="fixed inset-0 z-[9990] flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 dark:bg-slate-950/85 backdrop-blur-md animate-fadeIn overflow-y-auto"
     >
       <div
         onClick={handleContainerClick}
-        className={`w-full ${getMaxWidthClasses()} bg-slate-900/95 border border-slate-700/80 rounded-2xl shadow-2xl shadow-cyan-950/40 my-auto max-h-[88vh] flex flex-col overflow-hidden animate-scaleUp text-left`}
+        className={`w-full ${getMaxWidthClasses()} bg-white dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700/80 text-slate-900 dark:text-slate-100 rounded-2xl shadow-2xl dark:shadow-cyan-950/40 my-auto max-h-[88vh] flex flex-col overflow-hidden animate-scaleUp text-left`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 sm:px-6 py-4 sm:py-5 border-b border-slate-800/80 bg-slate-950/50 shrink-0">
+        <div className="flex items-center justify-between px-5 sm:px-6 py-4 sm:py-5 border-b border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-950/50 shrink-0">
           <div>
             {title && (
-              <h3 id="modal-title" className="text-lg sm:text-xl font-bold text-white tracking-tight">
+              <h3 id="modal-title" className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                 {title}
               </h3>
             )}
             {subtitle && (
-              <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{subtitle}</p>
             )}
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close dialog"
-            className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 shrink-0 ml-3"
+            className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 shrink-0 ml-3 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>

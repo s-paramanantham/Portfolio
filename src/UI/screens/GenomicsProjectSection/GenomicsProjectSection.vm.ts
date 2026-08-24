@@ -9,11 +9,11 @@ export interface UseGenomicsProjectSectionViewModelProps {
 }
 
 export interface UseGenomicsProjectSectionViewModelReturn {
-  readonly activeTab: 'overview' | 'streaming' | 'ai';
+  readonly activeTab: 'overview' | 'streaming' | 'ai' | 'integrations';
   readonly telemetry: GenomicsTelemetryBo | null;
   readonly isStreamingActive: boolean;
   readonly displayedLogs: readonly string[];
-  readonly setActiveTab: (tab: 'overview' | 'streaming' | 'ai') => void;
+  readonly setActiveTab: (tab: 'overview' | 'streaming' | 'ai' | 'integrations') => void;
   readonly toggleStreaming: () => void;
 }
 
@@ -21,6 +21,11 @@ const DYNAMIC_GENOMICS_STREAM_LOGS: readonly string[] = [
   '[SSE-STREAM] Chromosome 19:10,245,110 variant CYP2C19 scanned: Normal metabolizer (*1/*1)',
   '[FASTAPI-BACKEND] Async pipeline validated 45 pharmacogenomic rules in 12ms',
   '[BEDROCK-AI] Sub-second LLM streaming token packet dispatched for clinician view',
+  '[LIVEKIT-ROOM] WebRTC ultra-low-latency audio/video consultation session active',
+  '[EPIC-EHR] FHIR patient record synchronized & HIPAA encounter signed',
+  '[CONVESIO-PAY] Transaction verified for genomic test kit dispatch',
+  '[SWELL-ECOMMERCE] Patient test kit order status updated to processing',
+  '[CALENDAR-SYNC] Google & Microsoft consultation slot synchronized across timezones',
   '[WEBSOCKET-ROOM] Multi-clinician telemetry heartbeat active (240 FPS tick)',
   '[HIPAA-AUDIT] Encrypted audit checkpoint created for patient report locus #GEN-99483',
   '[ALERT-ENGINE] Warfarin sensitivity index computed: Normal sensitivity threshold',
@@ -34,7 +39,7 @@ export const useGenomicsProjectSectionViewModel = (
   props: UseGenomicsProjectSectionViewModelProps = {}
 ): UseGenomicsProjectSectionViewModelReturn => {
   const { portfolioService = ServiceFactory.getPortfolioService() } = props;
-  const [activeTab, setActiveTab] = useState<'overview' | 'streaming' | 'ai'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'streaming' | 'ai' | 'integrations'>('overview');
   const [telemetry, setTelemetry] = useState<GenomicsTelemetryBo | null>(null);
   const [isStreamingActive, setIsStreamingActive] = useState<boolean>(true);
   const [displayedLogs, setDisplayedLogs] = useState<readonly string[]>([]);

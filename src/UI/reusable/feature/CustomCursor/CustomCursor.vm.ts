@@ -1,13 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
-
-export interface CursorPosition {
-  readonly x: number;
-  readonly y: number;
-}
+import { useState, useEffect, useRef, RefObject } from 'react';
 
 export interface UseCustomCursorViewModelReturn {
-  readonly dotPos: CursorPosition;
-  readonly ringPos: CursorPosition;
+  readonly ringRef: RefObject<HTMLDivElement>;
+  readonly dotRef: RefObject<HTMLDivElement>;
   readonly isHovered: boolean;
   readonly isClicking: boolean;
   readonly isVisible: boolean;
@@ -15,15 +10,22 @@ export interface UseCustomCursorViewModelReturn {
 }
 
 export const useCustomCursorViewModel = (): UseCustomCursorViewModelReturn => {
-  const [dotPos, setDotPos] = useState<CursorPosition>({ x: -100, y: -100 });
-  const [ringPos, setRingPos] = useState<CursorPosition>({ x: -100, y: -100 });
+  const ringRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isClicking, setIsClicking] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [isTouchDevice, setIsTouchDevice] = useState<boolean>(false);
+  const [isTouchDevice, setIsTouchDevice] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return (
+      'ontouchstart' in window ||
+      (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0)
+    );
+  });
 
-  const targetPosRef = useRef<CursorPosition>({ x: -100, y: -100 });
-  const ringPosRef = useRef<CursorPosition>({ x: -100, y: -100 });
+  const targetPosRef = useRef<{ x: number; y: number }>({ x: -100, y: -100 });
+  const ringPosRef = useRef<{ x: number; y: number }>({ x: -100, y: -100 });
   const animFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -31,7 +33,11 @@ export const useCustomCursorViewModel = (): UseCustomCursorViewModelReturn => {
 
     const handleMouseMove = (e: MouseEvent): void => {
       targetPosRef.current = { x: e.clientX, y: e.clientY };
-      setDotPos({ x: e.clientX, y: e.clientY });
+
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      }
+
       setIsVisible(true);
       setIsTouchDevice(false);
 
@@ -56,19 +62,21 @@ export const useCustomCursorViewModel = (): UseCustomCursorViewModelReturn => {
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    document.documentElement.addEventListener('mouseleave', handleMouseLeave);
-    document.documentElement.addEventListener('mouseenter', handleMouseEnter);
+    window.addEventListener('mousedown', handleMouseDown, { passive: true });
+    window.addEventListener('mouseup', handleMouseUp, { passive: true });
+    document.documentElement.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+    document.documentElement.addEventListener('mouseenter', handleMouseEnter, { passive: true });
 
-    // Smooth spring trailing animation for the ring
+    // Direct GPU spring follower animation loop
     const animateFollower = (): void => {
       const ease = 0.18;
-      ringPosRef.current = {
-        x: ringPosRef.current.x + (targetPosRef.current.x - ringPosRef.current.x) * ease,
-        y: ringPosRef.current.y + (targetPosRef.current.y - ringPosRef.current.y) * ease,
-      };
-      setRingPos({ ...ringPosRef.current });
+      ringPosRef.current.x += (targetPosRef.current.x - ringPosRef.current.x) * ease;
+      ringPosRef.current.y += (targetPosRef.current.y - ringPosRef.current.y) * ease;
+
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${ringPosRef.current.x}px, ${ringPosRef.current.y}px, 0)`;
+      }
+
       animFrameRef.current = requestAnimationFrame(animateFollower);
     };
 
@@ -88,8 +96,8 @@ export const useCustomCursorViewModel = (): UseCustomCursorViewModelReturn => {
   }, []);
 
   return {
-    dotPos,
-    ringPos,
+    ringRef,
+    dotRef,
     isHovered,
     isClicking,
     isVisible,

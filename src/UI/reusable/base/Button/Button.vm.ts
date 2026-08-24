@@ -30,11 +30,11 @@ export const useButtonViewModel = (props: UseButtonViewModelProps): UseButtonVie
       case 'primary':
         return 'bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 border border-cyan-400/30';
       case 'secondary':
-        return 'bg-slate-800/80 hover:bg-slate-700/80 text-slate-100 border border-slate-700/80 hover:border-slate-600 shadow-sm';
+        return 'bg-slate-200 hover:bg-slate-300 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 shadow-sm';
       case 'outline':
-        return 'bg-transparent hover:bg-cyan-950/30 text-cyan-400 hover:text-cyan-300 border border-cyan-500/40 hover:border-cyan-400';
+        return 'bg-transparent hover:bg-cyan-50 dark:hover:bg-cyan-950/30 text-cyan-700 dark:text-cyan-400 hover:text-cyan-800 dark:hover:text-cyan-300 border border-cyan-500/50 dark:border-cyan-500/40 hover:border-cyan-600 dark:hover:border-cyan-400';
       case 'ghost':
-        return 'bg-transparent hover:bg-slate-800/60 text-slate-300 hover:text-white border border-transparent';
+        return 'bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-transparent';
       case 'danger':
         return 'bg-red-600/90 hover:bg-red-500 text-white border border-red-500/50 shadow-lg shadow-red-500/20';
       default:

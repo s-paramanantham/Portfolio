@@ -48,23 +48,27 @@ const NodeLogo: React.FC = () => (
 );
 
 const TECH_ITEMS: readonly TechItem[] = [
-
-  { name: 'Node.js', category: 'Backend Runtime', icon: <NodeLogo />, color: 'border-emerald-500/30 bg-emerald-950/20 text-emerald-300' },
-  { name: 'Express.js', category: 'REST APIs (200+)', icon: <Zap className="w-4 h-4 text-emerald-400" />, color: 'border-emerald-500/30 bg-emerald-950/20 text-emerald-300' },
-  { name: 'TypeScript', category: 'Type Safety', icon: <TypeScriptLogo />, color: 'border-blue-500/30 bg-blue-950/20 text-blue-300' },
-  { name: 'Python', category: 'Backend Engine', icon: <PythonLogo />, color: 'border-amber-500/30 bg-amber-950/20 text-amber-300' },
-  { name: 'FastAPI', category: 'High-Perf Async', icon: <Zap className="w-4 h-4 text-teal-400" />, color: 'border-teal-500/30 bg-teal-950/20 text-teal-300' },
-  { name: 'SQL Server (SSMS)', category: 'Enterprise DB', icon: <Database className="w-4 h-4 text-indigo-400" />, color: 'border-indigo-500/30 bg-indigo-950/20 text-indigo-300' },
-  { name: 'PostgreSQL', category: 'Relational DB', icon: <Database className="w-4 h-4 text-cyan-400" />, color: 'border-cyan-500/30 bg-cyan-950/20 text-cyan-300' },
-  { name: 'React', category: 'UI (300+ Screens)', icon: <ReactLogo />, color: 'border-cyan-500/30 bg-cyan-950/20 text-cyan-300' },
-  { name: 'Tailwind CSS', category: 'Responsive Design', icon: <Sparkles className="w-4 h-4 text-cyan-400" />, color: 'border-cyan-500/30 bg-cyan-950/20 text-cyan-300' },
-  { name: 'AWS Bedrock', category: 'Generative AI', icon: <Sparkles className="w-4 h-4 text-purple-400" />, color: 'border-purple-500/30 bg-purple-950/20 text-purple-300' },
-  { name: 'AWS Cognito', category: '3-Role RBAC', icon: <Shield className="w-4 h-4 text-purple-400" />, color: 'border-purple-500/30 bg-purple-950/20 text-purple-300' },
-  { name: 'WebSockets', category: 'Real-Time Sync', icon: <Radio className="w-4 h-4 text-amber-400" />, color: 'border-amber-500/30 bg-amber-950/20 text-amber-300' },
-  { name: 'Server-Sent Events (SSE)', category: 'Live Telemetry', icon: <Radio className="w-4 h-4 text-emerald-400" />, color: 'border-emerald-500/30 bg-emerald-950/20 text-emerald-300' },
-  { name: 'Microsoft Graph API', category: 'Cloud Collaboration', icon: <Cloud className="w-4 h-4 text-blue-400" />, color: 'border-blue-500/30 bg-blue-950/20 text-blue-300' },
-  { name: 'Slack Enterprise API', category: 'Migration Discovery', icon: <Boxes className="w-4 h-4 text-pink-400" />, color: 'border-pink-500/30 bg-pink-950/20 text-pink-300' },
-  { name: 'Docker', category: 'Containers', icon: <Cpu className="w-4 h-4 text-blue-400" />, color: 'border-blue-500/30 bg-blue-950/20 text-blue-300' },
+  { name: 'LiveKit', category: 'WebRTC Video (HD)', icon: <Radio className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />, color: 'border-cyan-300 dark:border-cyan-500/30 bg-cyan-50 dark:bg-cyan-950/20 text-cyan-800 dark:text-cyan-300' },
+  { name: 'EPIC EHR', category: 'Clinical FHIR/HL7', icon: <Boxes className="w-4 h-4 text-purple-500 dark:text-purple-400" />, color: 'border-purple-300 dark:border-purple-500/30 bg-purple-50 dark:bg-purple-950/20 text-purple-800 dark:text-purple-300' },
+  { name: 'Convesio Pay', category: 'Healthcare Payments', icon: <Zap className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />, color: 'border-emerald-300 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300' },
+  { name: 'Swell', category: 'Headless eCommerce', icon: <Sparkles className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />, color: 'border-cyan-300 dark:border-cyan-500/30 bg-cyan-50 dark:bg-cyan-950/20 text-cyan-800 dark:text-cyan-300' },
+  { name: 'Google & MS Calendar', category: 'Automated Sync', icon: <Cloud className="w-4 h-4 text-amber-500 dark:text-amber-400" />, color: 'border-amber-300 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-950/20 text-amber-900 dark:text-amber-300' },
+  { name: 'Node.js', category: 'Backend Runtime', icon: <NodeLogo />, color: 'border-emerald-300 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300' },
+  { name: 'Express.js', category: 'REST APIs (200+)', icon: <Zap className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />, color: 'border-emerald-300 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300' },
+  { name: 'TypeScript', category: 'Type Safety', icon: <TypeScriptLogo />, color: 'border-blue-300 dark:border-blue-500/30 bg-blue-50 dark:bg-blue-950/20 text-blue-800 dark:text-blue-300' },
+  { name: 'Python', category: 'Backend Engine', icon: <PythonLogo />, color: 'border-amber-300 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-950/20 text-amber-900 dark:text-amber-300' },
+  { name: 'FastAPI', category: 'High-Perf Async', icon: <Zap className="w-4 h-4 text-teal-500 dark:text-teal-400" />, color: 'border-teal-300 dark:border-teal-500/30 bg-teal-50 dark:bg-teal-950/20 text-teal-800 dark:text-teal-300' },
+  { name: 'SQL Server (SSMS)', category: 'Enterprise DB', icon: <Database className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />, color: 'border-indigo-300 dark:border-indigo-500/30 bg-indigo-50 dark:bg-indigo-950/20 text-indigo-800 dark:text-indigo-300' },
+  { name: 'PostgreSQL', category: 'Relational DB', icon: <Database className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />, color: 'border-cyan-300 dark:border-cyan-500/30 bg-cyan-50 dark:bg-cyan-950/20 text-cyan-800 dark:text-cyan-300' },
+  { name: 'React', category: 'UI (300+ Screens)', icon: <ReactLogo />, color: 'border-cyan-300 dark:border-cyan-500/30 bg-cyan-50 dark:bg-cyan-950/20 text-cyan-800 dark:text-cyan-300' },
+  { name: 'Tailwind CSS', category: 'Responsive Design', icon: <Sparkles className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />, color: 'border-cyan-300 dark:border-cyan-500/30 bg-cyan-50 dark:bg-cyan-950/20 text-cyan-800 dark:text-cyan-300' },
+  { name: 'AWS Bedrock', category: 'Generative AI', icon: <Sparkles className="w-4 h-4 text-purple-500 dark:text-purple-400" />, color: 'border-purple-300 dark:border-purple-500/30 bg-purple-50 dark:bg-purple-950/20 text-purple-800 dark:text-purple-300' },
+  { name: 'AWS Cognito', category: '3-Role RBAC', icon: <Shield className="w-4 h-4 text-purple-500 dark:text-purple-400" />, color: 'border-purple-300 dark:border-purple-500/30 bg-purple-50 dark:bg-purple-950/20 text-purple-800 dark:text-purple-300' },
+  { name: 'WebSockets', category: 'Real-Time Sync', icon: <Radio className="w-4 h-4 text-amber-500 dark:text-amber-400" />, color: 'border-amber-300 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-950/20 text-amber-900 dark:text-amber-300' },
+  { name: 'Server-Sent Events (SSE)', category: 'Live Telemetry', icon: <Radio className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />, color: 'border-emerald-300 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300' },
+  { name: 'Microsoft Graph API', category: 'Cloud Collaboration', icon: <Cloud className="w-4 h-4 text-blue-500 dark:text-blue-400" />, color: 'border-blue-300 dark:border-blue-500/30 bg-blue-50 dark:bg-blue-950/20 text-blue-800 dark:text-blue-300' },
+  { name: 'Slack Enterprise API', category: 'Migration Discovery', icon: <Boxes className="w-4 h-4 text-pink-500 dark:text-pink-400" />, color: 'border-pink-300 dark:border-pink-500/30 bg-pink-50 dark:bg-pink-950/20 text-pink-800 dark:text-pink-300' },
+  { name: 'Docker', category: 'Containers', icon: <Cpu className="w-4 h-4 text-blue-500 dark:text-blue-400" />, color: 'border-blue-300 dark:border-blue-500/30 bg-blue-50 dark:bg-blue-950/20 text-blue-800 dark:text-blue-300' },
 ];
 
 
@@ -75,25 +79,25 @@ export const TechMarquee: React.FC = () => {
   return (
     <div
       aria-label="Running Core Technologies"
-      className="relative w-full overflow-hidden py-4 sm:py-6 border-y border-slate-800/80 bg-slate-950/40 backdrop-blur-sm"
+      className="relative w-full overflow-hidden py-4 sm:py-6 border-y border-slate-200 dark:border-slate-800/80 bg-white/70 dark:bg-slate-950/40 backdrop-blur-sm transition-colors duration-300"
     >
       {/* Left/Right Vignette Gradient Masks */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[#030712] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[#030712] to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-slate-50 dark:from-[#030712] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-slate-50 dark:from-[#030712] to-transparent z-10 pointer-events-none" />
 
       {/* Infinite Horizontal Running Marquee */}
       <div className="animate-marquee flex items-center gap-3 sm:gap-4 select-none">
         {marqueeItems.map((tech, idx) => (
           <div
             key={`${tech.name}-${idx}`}
-            className={`flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-xl border backdrop-blur-md transition-all hover:scale-105 ${tech.color}`}
+            className={`flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-xl border backdrop-blur-md transition-all hover:scale-105 shadow-sm ${tech.color}`}
           >
             <span className="shrink-0">{tech.icon}</span>
             <div className="flex flex-col">
-              <span className="text-xs sm:text-sm font-bold text-white tracking-tight whitespace-nowrap">
+              <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white tracking-tight whitespace-nowrap">
                 {tech.name}
               </span>
-              <span className="text-[10px] text-slate-400 font-mono whitespace-nowrap">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono whitespace-nowrap">
                 {tech.category}
               </span>
             </div>

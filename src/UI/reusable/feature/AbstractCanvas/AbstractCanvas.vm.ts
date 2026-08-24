@@ -25,7 +25,8 @@ export const useAbstractCanvasViewModel = (): UseAbstractCanvasViewModelReturn =
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animationFrameId: number | null = null;
+    let isCanvasVisible = true;
     let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
     let height = (canvas.height = canvas.parentElement?.clientHeight || window.innerHeight);
 
@@ -44,7 +45,7 @@ export const useAbstractCanvasViewModel = (): UseAbstractCanvasViewModelReturn =
       'rgba(16, 185, 129, ',
     ];
 
-    const particleCount = Math.min(Math.floor((width * height) / 18000), 75);
+    const particleCount = Math.min(Math.floor((width * height) / 18000), 70);
     const particles: Particle[] = [];
 
     for (let i = 0; i < particleCount; i++) {
@@ -53,8 +54,8 @@ export const useAbstractCanvasViewModel = (): UseAbstractCanvasViewModelReturn =
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
         radius,
         baseRadius: radius,
         color: colorPrefix,
@@ -81,17 +82,19 @@ export const useAbstractCanvasViewModel = (): UseAbstractCanvasViewModelReturn =
       mouse.targetY = height / 2;
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
     const parent = canvas.parentElement;
     if (parent) {
-      parent.addEventListener('mousemove', handleMouseMove);
-      parent.addEventListener('mouseleave', handleMouseLeave);
+      parent.addEventListener('mousemove', handleMouseMove, { passive: true });
+      parent.addEventListener('mouseleave', handleMouseLeave, { passive: true });
     }
 
     const prefersReducedMotion =
       window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const render = () => {
+      if (!isCanvasVisible) return;
+
       ctx.clearRect(0, 0, width, height);
 
       mouse.x += (mouse.targetX - mouse.x) * 0.05;
@@ -148,8 +151,8 @@ export const useAbstractCanvasViewModel = (): UseAbstractCanvasViewModelReturn =
           const dy = p.y - p2.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 120) {
-            const linkAlpha = (1 - distance / 120) * 0.15;
+          if (distance < 110) {
+            const linkAlpha = (1 - distance / 110) * 0.12;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -163,10 +166,34 @@ export const useAbstractCanvasViewModel = (): UseAbstractCanvasViewModelReturn =
       animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    // IntersectionObserver to pause loop when scrolled out of view for locked 60 FPS
+    let observer: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== 'undefined') {
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          isCanvasVisible = entry.isIntersecting;
+          if (isCanvasVisible) {
+            if (animationFrameId === null) {
+              animationFrameId = requestAnimationFrame(render);
+            }
+          } else if (animationFrameId !== null) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
+        });
+      });
+      observer.observe(canvas);
+    } else {
+      animationFrameId = requestAnimationFrame(render);
+    }
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      if (observer) {
+        observer.disconnect();
+      }
       window.removeEventListener('resize', handleResize);
       if (parent) {
         parent.removeEventListener('mousemove', handleMouseMove);

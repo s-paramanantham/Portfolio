@@ -68,11 +68,11 @@ export const CapabilityDrawer: React.FC<CapabilityDrawerProps> = ({ categories }
               onClick={() => selectCategory(category.id)}
               className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap min-h-[44px] shrink-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 touch-manipulation active:scale-[0.98] ${
                 isSelected
-                  ? 'bg-gradient-to-r from-cyan-500/20 to-indigo-500/20 text-cyan-300 border border-cyan-400/40 shadow-lg shadow-cyan-500/10'
-                  : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700'
+                  ? 'bg-gradient-to-r from-cyan-500/15 to-indigo-500/15 dark:from-cyan-500/20 dark:to-indigo-500/20 text-cyan-800 dark:text-cyan-300 border border-cyan-400/60 dark:border-cyan-400/40 shadow-lg shadow-cyan-500/10'
+                  : 'bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm'
               }`}
             >
-              <span className={isSelected ? 'text-cyan-400' : 'text-slate-500'}>
+              <span className={isSelected ? 'text-cyan-600 dark:text-cyan-400' : 'text-slate-400 dark:text-slate-500'}>
                 {renderCategoryIcon(category.iconName)}
               </span>
               <span>{category.title}</span>
@@ -90,19 +90,19 @@ export const CapabilityDrawer: React.FC<CapabilityDrawerProps> = ({ categories }
           role="tabpanel"
           className="p-4 sm:p-6 lg:p-8 space-y-5 sm:space-y-6 w-full overflow-hidden"
         >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
             <div>
-              <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight flex items-center gap-2">
-                <span className="text-cyan-400">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+                <span className="text-cyan-600 dark:text-cyan-400">
                   {renderCategoryIcon(activeCategory.iconName, 'w-5 h-5')}
                 </span>
                 {activeCategory.title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-400 mt-1 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
                 {activeCategory.description}
               </p>
             </div>
-            <span className="text-xs font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-500/30 px-2.5 py-1 rounded-full shrink-0 self-start sm:self-auto">
+            <span className="text-xs font-mono text-cyan-800 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-300 dark:border-cyan-500/30 px-2.5 py-1 rounded-full shrink-0 self-start sm:self-auto font-medium">
               {activeCategory.skills.length} Capabilities
             </span>
           </div>
@@ -117,12 +117,12 @@ export const CapabilityDrawer: React.FC<CapabilityDrawerProps> = ({ categories }
                   onClick={() => selectSkill(isSelected ? null : skill)}
                   className={`p-3.5 sm:p-4 rounded-xl border transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[44px] touch-manipulation active:scale-[0.99] select-none ${
                     isSelected
-                      ? 'bg-cyan-950/40 border-cyan-400 shadow-md shadow-cyan-500/10'
-                      : 'bg-slate-900/50 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900'
+                      ? 'bg-cyan-50 dark:bg-cyan-950/40 border-cyan-400 dark:border-cyan-400 shadow-md shadow-cyan-500/10'
+                      : 'bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-900'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-xs sm:text-sm font-bold text-white tracking-tight">
+                    <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white tracking-tight">
                       {skill.name}
                     </span>
                     {skill.isHighlighted && (
@@ -133,10 +133,10 @@ export const CapabilityDrawer: React.FC<CapabilityDrawerProps> = ({ categories }
                   </div>
 
                   <div className="space-y-1.5">
-                    <span className="text-[11px] font-mono text-slate-400 block">
-                      Proficiency: <strong className="text-slate-300">{skill.proficiency}</strong>
+                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 block">
+                      Proficiency: <strong className="text-slate-700 dark:text-slate-300">{skill.proficiency}</strong>
                     </span>
-                    <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">{skill.context}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">{skill.context}</p>
                   </div>
                 </div>
               );
@@ -145,13 +145,13 @@ export const CapabilityDrawer: React.FC<CapabilityDrawerProps> = ({ categories }
 
           {/* Selected Skill Context Panel */}
           {selectedSkill && (
-            <div className="p-3.5 sm:p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/40 text-xs text-slate-300 flex items-start gap-2.5 sm:gap-3 animate-fadeIn">
-              <Info className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+            <div className="p-3.5 sm:p-4 rounded-xl bg-cyan-50 dark:bg-cyan-950/30 border border-cyan-300 dark:border-cyan-500/40 text-xs text-slate-700 dark:text-slate-300 flex items-start gap-2.5 sm:gap-3 animate-fadeIn shadow-sm">
+              <Info className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5" />
               <div>
-                <strong className="text-cyan-300 font-semibold text-xs sm:text-sm block">
+                <strong className="text-cyan-800 dark:text-cyan-300 font-semibold text-xs sm:text-sm block">
                   Production Application Context: {selectedSkill.name}
                 </strong>
-                <p className="mt-1 text-xs text-slate-300 leading-relaxed">{selectedSkill.context}</p>
+                <p className="mt-1 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{selectedSkill.context}</p>
               </div>
             </div>
           )}

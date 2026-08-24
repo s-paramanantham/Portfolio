@@ -13,6 +13,7 @@ import { ResumeSection } from '../ResumeSection/ResumeSection';
 import { AboutSection } from '../AboutSection/AboutSection';
 import { ContactSection } from '../ContactSection/ContactSection';
 import { Footer } from '../Footer/Footer';
+import { AiChatWidget } from '../../reusable/feature/AiChatWidget/AiChatWidget';
 import { ErrorBoundary } from '../../reusable/base/ErrorBoundary/ErrorBoundary';
 import { ScrollReveal } from '../../reusable/base/ScrollReveal/ScrollReveal';
 
@@ -22,7 +23,7 @@ export const HomeScreen: React.FC = () => {
   if (!isInitialized) return null;
 
   return (
-    <div className="relative min-h-screen bg-[#030712] text-slate-100 flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-[#030712] text-slate-900 dark:text-slate-100 flex flex-col selection:bg-cyan-500/30 selection:text-cyan-800 dark:selection:text-cyan-200 transition-colors duration-300">
       {/* Animated Interactive Custom Cursor */}
       <CustomCursor />
 
@@ -91,7 +92,8 @@ export const HomeScreen: React.FC = () => {
         </ErrorBoundary>
       </main>
 
-
+      {/* Floating AI Genius Portfolio Copilot */}
+      <AiChatWidget />
 
       {/* Footer */}
       <Footer />

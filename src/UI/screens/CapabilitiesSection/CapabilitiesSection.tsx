@@ -21,13 +21,13 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
     >
       {/* Section Header */}
       <div className="text-center mb-10 sm:mb-16 space-y-2.5 sm:space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-300 dark:border-cyan-500/30 text-cyan-800 dark:text-cyan-300 text-xs font-semibold uppercase tracking-wider">
           Technical Skills &amp; Competencies
         </div>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Capabilities &amp; Domain Expertise
         </h2>
-        <p className="text-slate-400 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+        <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
           Interactive matrix categorized by engineering domains. Click on any capability to view production application context.
         </p>
       </div>
