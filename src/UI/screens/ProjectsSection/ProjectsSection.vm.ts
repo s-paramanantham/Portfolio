@@ -59,6 +59,23 @@ export const useProjectsSectionViewModel = (
     };
   }, [portfolioService]);
 
+  // Global listener for cross-component project view switching (e.g. from AI Copilot)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleCustomViewSwitch = (event: Event) => {
+      const customEvent = event as CustomEvent<{ view?: ProjectsViewMode }>;
+      if (customEvent.detail && customEvent.detail.view) {
+        setActiveView(customEvent.detail.view);
+      }
+    };
+
+    window.addEventListener('portfolio:switch-project-view', handleCustomViewSwitch);
+    return () => {
+      window.removeEventListener('portfolio:switch-project-view', handleCustomViewSwitch);
+    };
+  }, []);
+
   const openDeepDive = (projectId: string): void => {
     if (projectId.includes('genomics')) {
       setActiveView('genomics');

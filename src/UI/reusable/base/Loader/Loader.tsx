@@ -20,13 +20,13 @@ export const Loader: React.FC<LoaderProps> = ({
         className={`${spinnerSizeClasses} border-cyan-500/20 border-t-cyan-400 rounded-full animate-spin`}
         aria-hidden="true"
       />
-      {label && <p className="text-xs font-medium text-slate-400 tracking-wider uppercase">{label}</p>}
+      {label && <p className="text-xs font-medium text-slate-500 dark:text-slate-400 tracking-wider uppercase">{label}</p>}
     </div>
   );
 
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 dark:bg-slate-950/80 backdrop-blur-md">
         {content}
       </div>
     );

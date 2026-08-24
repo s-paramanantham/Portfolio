@@ -37,22 +37,22 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Primary Name Headline */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6">
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6">
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-slate-950 via-slate-800 to-slate-600 dark:from-white dark:via-slate-100 dark:to-slate-400">
             PARAMANANTHAM S
           </span>
         </h1>
 
         {/* Roles & Subtitle */}
-        <div className="flex items-center justify-center gap-3 text-lg sm:text-2xl font-semibold text-cyan-400 mb-6 flex-wrap">
+        <div className="flex items-center justify-center gap-3 text-lg sm:text-2xl font-semibold text-cyan-600 dark:text-cyan-400 mb-6 flex-wrap">
           <span>Software Engineer</span>
-          <span className="text-slate-600">&bull;</span>
-          <span className="text-indigo-400">Full Stack Developer</span>
+          <span className="text-slate-400 dark:text-slate-600">&bull;</span>
+          <span className="text-indigo-600 dark:text-indigo-400">Full Stack Developer</span>
         </div>
 
 
         {/* Supporting Philosophy Statement */}
-        <p className="text-base sm:text-xl text-slate-300 max-w-3xl leading-relaxed mb-10 font-normal">
+        <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed mb-10 font-normal">
           Building production-grade digital experiences, enterprise platforms, and intelligent applications with modern full-stack architectures.
         </p>
 
@@ -72,7 +72,7 @@ export const HeroSection: React.FC = () => {
             variant="secondary"
             size="lg"
             onClick={() => scrollToSection('experience')}
-            leftIcon={<Sparkles className="w-4 h-4 text-cyan-400" />}
+            leftIcon={<Sparkles className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />}
             className="w-full sm:w-auto touch-manipulation"
           >
             View Experience
@@ -89,17 +89,17 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Core Architecture Highlights Chips */}
-        <div className="mt-14 pt-8 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-slate-400 font-mono">
+        <div className="mt-14 pt-8 border-t border-slate-200 dark:border-slate-800/80 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-slate-600 dark:text-slate-400 font-mono">
           <div className="flex items-center gap-2">
-            <Code2 className="w-4 h-4 text-cyan-400" />
+            <Code2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
             <span>React &bull; TypeScript &bull; Tailwind</span>
           </div>
           <div className="flex items-center gap-2">
-            <Database className="w-4 h-4 text-indigo-400" />
+            <Database className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>Node.js / Express &bull; Python / FastAPI &bull; SQL Server / Postgres</span>
           </div>
           <div className="flex items-center gap-2">
-            <Network className="w-4 h-4 text-emerald-400" />
+            <Network className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>WebSockets &bull; SSE &bull; AWS / Azure</span>
           </div>
         </div>

@@ -59,19 +59,19 @@ export const MetricCard: React.FC<MetricCardProps> = ({ metric }) => {
         <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center group-hover:scale-110 group-hover:border-cyan-500/40 transition-all duration-300">
           {renderIcon()}
         </div>
-        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
+        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           {metric.category}
         </span>
       </div>
 
       <div>
-        <div className="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight flex items-baseline gap-0.5">
+        <div className="text-3xl sm:text-4xl font-extrabold font-mono text-slate-900 dark:text-white tracking-tight flex items-baseline gap-0.5">
           <AnimatedCounter value={metric.numericValue} suffix={metric.suffix} />
         </div>
-        <h4 className="text-sm font-semibold text-slate-200 mt-2 tracking-tight group-hover:text-cyan-300 transition-colors">
+        <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-2 tracking-tight group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
           {metric.label}
         </h4>
-        <p className="text-xs text-slate-400 mt-1 leading-relaxed">{metric.description}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">{metric.description}</p>
       </div>
     </GlassSurface>
   );

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://paramanantham.dev/sitemap.xml

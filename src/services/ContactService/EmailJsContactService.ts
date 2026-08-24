@@ -31,15 +31,47 @@ export class EmailJsContactService implements ContactServiceInterface {
     }
 
     try {
-      const templateParams = {
-        name: payload.name,
-        from_name: payload.name,
+      const nameWithEmail = `${payload.name} (${payload.email})`;
+
+      const templateParams: Record<string, string> = {
+        // Combined Name & Email (formatted as "Your Name (your.email@domain.com)")
+        name: nameWithEmail,
+        from_name: nameWithEmail,
+        sender_name: nameWithEmail,
+        user_name: nameWithEmail,
+        contact_name: nameWithEmail,
+        sender: nameWithEmail,
+
+        // Standalone clean name aliases
+        clean_name: payload.name,
+        original_name: payload.name,
+
+        // Sender Email aliases (fixes missing sender email in template)
         email: payload.email,
+        from_email: payload.email,
+        sender_email: payload.email,
+        user_email: payload.email,
+        contact_email: payload.email,
+        from_mail: payload.email,
         reply_to: payload.email,
+
+        // Subject aliases
         subject: payload.subject,
+        user_subject: payload.subject,
+        title: payload.subject,
+
+        // Message content aliases
         message: payload.message,
         content: payload.message,
+        user_message: payload.message,
+        body: payload.message,
+
+        // Recipient details
         to_name: 'Paramanantham S',
+        to_email: config.social.email,
+
+        // Timestamp
+        submitted_at: new Date().toISOString(),
       };
 
       const response = await emailjs.send(

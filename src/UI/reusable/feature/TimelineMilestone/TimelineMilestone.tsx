@@ -45,17 +45,17 @@ export const TimelineMilestone: React.FC<TimelineMilestoneProps> = ({
       <div className="flex-1 pb-10">
         <div
           onClick={toggleExpand}
-          className="p-6 sm:p-7 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 hover:border-slate-700 transition-all duration-300 shadow-lg cursor-pointer"
+          className="p-6 sm:p-7 rounded-2xl bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 shadow-md dark:shadow-lg cursor-pointer"
         >
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xl font-bold text-white tracking-tight">
+                <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                   {milestone.company}
                 </span>
-                <span className="text-slate-500">&bull;</span>
-                <span className="text-sm font-semibold text-cyan-400">
+                <span className="text-slate-400 dark:text-slate-500">&bull;</span>
+                <span className="text-sm font-semibold text-cyan-600 dark:text-cyan-400">
                   {milestone.engineeringRole}
                 </span>
                 <Badge variant="slate" size="sm">
@@ -67,26 +67,26 @@ export const TimelineMilestone: React.FC<TimelineMilestoneProps> = ({
                   </Badge>
                 )}
               </div>
-              <p className="text-xs text-slate-400 mt-1">{milestone.companyDescription}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{milestone.companyDescription}</p>
             </div>
 
-            <div className="flex items-center gap-3 text-xs text-slate-400 font-mono shrink-0">
+            <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-mono shrink-0">
               <span className="inline-flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
                 {milestone.period}
               </span>
               <span className="inline-flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                <MapPin className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
                 {milestone.location}
               </span>
             </div>
           </div>
 
           {/* Key Responsibilities */}
-          <ul className="mt-4 space-y-2 text-xs sm:text-sm text-slate-300">
+          <ul className="mt-4 space-y-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
             {milestone.keyResponsibilities.map((resp: string, idx: number) => (
               <li key={idx} className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5" />
                 <span>{resp}</span>
               </li>
             ))}
@@ -94,9 +94,9 @@ export const TimelineMilestone: React.FC<TimelineMilestoneProps> = ({
 
           {/* Expandable Technical Ownership & Impact */}
           {isExpanded && (
-            <div className="mt-6 pt-6 border-t border-slate-800 space-y-4 animate-fadeIn">
+            <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4 animate-fadeIn">
               <div>
-                <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
                   Key Technical Ownership
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
@@ -109,16 +109,16 @@ export const TimelineMilestone: React.FC<TimelineMilestoneProps> = ({
               </div>
 
               <div>
-                <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
                   Quantified Impact
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {milestone.quantifiedImpact.map((impact: string, idx: number) => (
                     <div
                       key={idx}
-                      className="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-300 flex items-center gap-2"
+                      className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/80 text-xs text-slate-700 dark:text-slate-300 flex items-center gap-2"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
                       {impact}
                     </div>
                   ))}
@@ -126,7 +126,7 @@ export const TimelineMilestone: React.FC<TimelineMilestoneProps> = ({
               </div>
 
               <div>
-                <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
                   Technologies Used
                 </h4>
                 <div className="flex flex-wrap gap-1.5">

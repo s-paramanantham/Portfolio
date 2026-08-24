@@ -21,13 +21,13 @@ export const EngineeringScaleSection: React.FC<EngineeringScaleSectionProps> = (
     >
       {/* Section Header */}
       <div className="text-center mb-16 space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-300 dark:border-cyan-500/30 text-cyan-800 dark:text-cyan-300 text-xs font-semibold uppercase tracking-wider">
           Quantified Impact
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Engineering Scale of Work
         </h2>
-        <p className="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+        <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
           Measurable outcomes delivering high-volume systems, multi-terabyte migrations, and mission-critical reliability.
         </p>
       </div>

@@ -24,7 +24,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         <div>
           {/* Header & Badges */}
           <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
-            <span className="text-xs font-mono font-medium text-cyan-400 uppercase tracking-wider">
+            <span className="text-xs font-mono font-semibold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">
               {project.category}
             </span>
             {project.badgeText && (
@@ -35,13 +35,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           </div>
 
           {/* Title & Subtitle */}
-          <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-cyan-300 transition-colors">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
             {project.title}
           </h3>
-          <p className="text-xs text-indigo-300/90 font-medium mt-1 mb-3">{project.subtitle}</p>
+          <p className="text-xs text-indigo-600 dark:text-indigo-300/90 font-semibold mt-1 mb-3">{project.subtitle}</p>
 
           {/* Summary */}
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed line-clamp-3 mb-6">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 mb-6">
             {project.summary}
           </p>
 
@@ -50,10 +50,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             {project.metrics.slice(0, 2).map((m: ProjectMetricBo) => (
               <div
                 key={m.label}
-                className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800/80 flex flex-col"
+                className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 flex flex-col"
               >
-                <span className="text-base font-bold font-mono text-cyan-400">{m.value}</span>
-                <span className="text-[11px] text-slate-400 truncate">{m.label}</span>
+                <span className="text-base font-bold font-mono text-cyan-600 dark:text-cyan-400">{m.value}</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{m.label}</span>
               </div>
             ))}
           </div>
@@ -91,9 +91,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       <Modal isOpen={isModalOpen} onClose={closeModal} title={project.title} maxWidth="3xl">
         <div className="space-y-6 text-left">
           {/* Header Banner */}
-          <div className="p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-cyan-950/60 via-slate-900/80 to-indigo-950/60 border border-cyan-500/30 space-y-2.5">
+          <div className="p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-cyan-50 via-slate-100 to-indigo-50 dark:from-cyan-950/60 dark:via-slate-900/80 dark:to-indigo-950/60 border border-cyan-300 dark:border-cyan-500/30 space-y-2.5">
             <div className="flex items-center justify-between gap-2 flex-wrap">
-              <span className="text-xs font-mono font-bold text-cyan-300 uppercase tracking-wider">
+              <span className="text-xs font-mono font-bold text-cyan-700 dark:text-cyan-300 uppercase tracking-wider">
                 {project.category}
               </span>
               {project.badgeText && (
@@ -102,30 +102,30 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                 </Badge>
               )}
             </div>
-            <h4 className="text-sm sm:text-base font-bold text-white leading-snug">
+            <h4 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug">
               {project.subtitle}
             </h4>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
               {project.summary}
             </p>
           </div>
 
           {/* Key Impact Metrics Grid */}
           <div className="space-y-3">
-            <h4 className="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <h4 className="text-xs font-mono font-semibold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
               Quantified Production Impact
             </h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 items-stretch">
               {project.metrics.map((m: ProjectMetricBo) => (
                 <div
                   key={m.label}
-                  className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-cyan-500/40 transition-colors flex flex-col justify-between"
+                  className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-cyan-400 dark:hover:border-cyan-500/40 transition-colors flex flex-col justify-between"
                 >
-                  <div className="text-xl sm:text-2xl font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-300">
+                  <div className="text-xl sm:text-2xl font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600 dark:from-cyan-400 dark:to-indigo-300">
                     {m.value}
                   </div>
-                  <div className="text-xs font-medium text-slate-400 mt-1 leading-snug">
+                  <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1 leading-snug">
                     {m.label}
                   </div>
                 </div>
@@ -135,20 +135,20 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
           {/* Technical Contributions & Architecture */}
           <div className="space-y-3">
-            <h4 className="text-xs font-mono font-semibold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-indigo-400" />
+            <h4 className="text-xs font-mono font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
               Technical Contributions &amp; System Architecture
             </h4>
             <div className="space-y-2.5">
               {project.description.map((item: string, idx: number) => (
                 <div
                   key={idx}
-                  className="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800/80 flex items-start gap-3 hover:bg-slate-900/90 transition-colors"
+                  className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800/80 flex items-start gap-3 hover:bg-slate-100 dark:hover:bg-slate-900/90 transition-colors"
                 >
-                  <div className="w-5 h-5 rounded-md bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
+                  <div className="w-5 h-5 rounded-md bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-xs sm:text-sm text-slate-200 leading-relaxed">{item}</span>
+                  <span className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed">{item}</span>
                 </div>
               ))}
             </div>
@@ -157,7 +157,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           {/* Key Engineering Highlights */}
           {project.keyHighlights && project.keyHighlights.length > 0 && (
             <div className="space-y-2.5">
-              <h4 className="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider">
+              <h4 className="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
                 Core Engineering Highlights
               </h4>
               <div className="flex flex-wrap items-center gap-2">
@@ -172,7 +172,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
           {/* Complete Tech Stack Matrix */}
           <div className="space-y-2.5">
-            <h4 className="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">
+            <h4 className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Complete Technology Stack
             </h4>
             <div className="flex flex-wrap items-center gap-2">
@@ -185,7 +185,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           </div>
 
           {/* Modal Footer Actions */}
-          <div className="pt-4 border-t border-slate-800/80 flex items-center justify-end">
+          <div className="pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center justify-end">
             <Button variant="outline" size="sm" onClick={closeModal}>
               Close Case Study
             </Button>

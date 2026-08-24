@@ -18,8 +18,8 @@ export interface UseResumeSectionViewModelReturn {
 
 export const useResumeSectionViewModel = (): UseResumeSectionViewModelReturn => {
   const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
-  const resumeUrl = '/Paramanantham_S_Resume.docx';
-  const resumeFileName = 'Paramanantham_S_Resume.docx';
+  const resumeUrl = '/Paramanantham_Resume.pdf';
+  const resumeFileName = 'Paramanantham_Resume.pdf';
 
   const highlights: readonly ResumeHighlight[] = [
     {
@@ -48,6 +48,9 @@ export const useResumeSectionViewModel = (): UseResumeSectionViewModelReturn => 
     'Node.js & Express.js',
     'Python & FastAPI',
     'React & TypeScript',
+    'LiveKit & EPIC EHR (FHIR)',
+    'Convesio Pay & Swell Commerce',
+    'Google & MS Calendar APIs',
     'Tailwind CSS Responsive UI',
     'SQL Server (SSMS) & Postgres',
     'AWS Bedrock & AWS Cognito',

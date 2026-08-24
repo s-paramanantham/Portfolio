@@ -7,7 +7,6 @@ import {
   RotateCcw,
   FileText,
   FileCode,
-  Globe,
   Briefcase,
   GraduationCap,
   Sparkles,
@@ -32,9 +31,7 @@ export const ResumePreviewModal: React.FC<ResumePreviewModalProps> = ({ isOpen, 
     activeTab,
     zoom,
     pdfUrl,
-    docxUrl,
     pdfFileName,
-    docxFileName,
     socialInfo,
     setActiveTab,
     zoomIn,
@@ -49,59 +46,46 @@ export const ResumePreviewModal: React.FC<ResumePreviewModalProps> = ({ isOpen, 
     <Modal isOpen={isOpen} onClose={onClose} maxWidth="4xl">
       <div className="flex flex-col space-y-4">
         {/* Top Control Bar: Format Switcher & Actions */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200 dark:border-slate-800">
           {/* Format Tabs */}
-          <div className="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800 overflow-x-auto no-scrollbar max-w-full">
-            <button
-              type="button"
-              onClick={() => setActiveTab('formatted')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                activeTab === 'formatted'
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                  : 'text-slate-400 hover:text-white border border-transparent'
-              }`}
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>Interactive Document (DOCX &amp; PDF)</span>
-            </button>
-
+          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-950/80 p-1 rounded-xl border border-slate-200 dark:border-slate-800 overflow-x-auto no-scrollbar max-w-full shadow-inner">
             <button
               type="button"
               onClick={() => setActiveTab('pdf')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                 activeTab === 'pdf'
-                  ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 shadow-sm'
-                  : 'text-slate-400 hover:text-white border border-transparent'
+                  ? 'bg-gradient-to-r from-cyan-500/15 to-indigo-500/15 dark:from-cyan-500/20 dark:to-indigo-500/20 text-cyan-800 dark:text-cyan-300 border border-cyan-400/60 dark:border-cyan-500/40 shadow-sm'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-transparent'
               }`}
             >
               <FileCode className="w-3.5 h-3.5" />
-              <span>PDF Viewer</span>
+              <span>Official PDF Document</span>
             </button>
 
             <button
               type="button"
-              onClick={() => setActiveTab('docx')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                activeTab === 'docx'
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                  : 'text-slate-400 hover:text-white border border-transparent'
+              onClick={() => setActiveTab('formatted')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                activeTab === 'formatted'
+                  ? 'bg-gradient-to-r from-cyan-500/15 to-indigo-500/15 dark:from-cyan-500/20 dark:to-indigo-500/20 text-cyan-800 dark:text-cyan-300 border border-cyan-400/60 dark:border-cyan-500/40 shadow-sm'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-transparent'
               }`}
             >
-              <Globe className="w-3.5 h-3.5" />
-              <span>Word Online View</span>
+              <FileText className="w-3.5 h-3.5" />
+              <span>Structured Executive Summary</span>
             </button>
           </div>
 
           {/* Quick Action Buttons */}
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap justify-end">
             {/* Zoom Controls (Active in Formatted View) */}
             {activeTab === 'formatted' && (
-              <div className="hidden sm:flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-slate-400 text-xs">
+              <div className="hidden sm:flex items-center gap-1 bg-slate-100 dark:bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-xs shadow-sm">
                 <button
                   type="button"
                   onClick={zoomOut}
                   aria-label="Zoom out"
-                  className="p-1 hover:text-white transition-colors"
+                  className="p-1 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   <ZoomOut className="w-3.5 h-3.5" />
                 </button>
@@ -110,7 +94,7 @@ export const ResumePreviewModal: React.FC<ResumePreviewModalProps> = ({ isOpen, 
                   type="button"
                   onClick={zoomIn}
                   aria-label="Zoom in"
-                  className="p-1 hover:text-white transition-colors"
+                  className="p-1 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   <ZoomIn className="w-3.5 h-3.5" />
                 </button>
@@ -118,35 +102,36 @@ export const ResumePreviewModal: React.FC<ResumePreviewModalProps> = ({ isOpen, 
                   type="button"
                   onClick={resetZoom}
                   aria-label="Reset zoom"
-                  className="p-1 hover:text-white transition-colors ml-1"
+                  className="p-1 hover:text-slate-900 dark:hover:text-white transition-colors ml-1"
                 >
                   <RotateCcw className="w-3 h-3" />
                 </button>
               </div>
             )}
 
+            <a
+              href={pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-cyan-700 dark:text-cyan-400 hover:text-cyan-800 dark:hover:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-300 dark:border-cyan-500/40 transition-colors"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Open in Tab</span>
+            </a>
+
             <button
               type="button"
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors"
             >
               <Printer className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Print</span>
             </button>
 
             <a
-              href={docxUrl}
-              download={docxFileName}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-sm transition-all"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download DOCX</span>
-            </a>
-
-            <a
               href={pdfUrl}
               download={pdfFileName}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-sm transition-all"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download PDF</span>
@@ -155,20 +140,29 @@ export const ResumePreviewModal: React.FC<ResumePreviewModalProps> = ({ isOpen, 
         </div>
 
         {/* Viewport Content Area */}
-        <div className="min-h-[55vh] max-h-[70vh] overflow-y-auto custom-scrollbar bg-slate-950/60 rounded-xl border border-slate-800 p-2 sm:p-4">
+        <div className="min-h-[55vh] max-h-[72vh] overflow-y-auto custom-scrollbar bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800 p-2 sm:p-4">
+          {activeTab === 'pdf' && (
+            <div className="w-full h-full flex flex-col space-y-3">
+              <iframe
+                src={`${pdfUrl}#toolbar=1`}
+                title="Paramanantham Official Resume PDF"
+                className="w-full h-[65vh] rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-inner"
+              />
+            </div>
+          )}
           {activeTab === 'formatted' && (
             <div
-              className="mx-auto bg-slate-900/90 text-slate-200 rounded-xl border border-slate-800 p-4 sm:p-8 max-w-3xl shadow-2xl space-y-6 transition-transform origin-top"
+              className="mx-auto bg-white dark:bg-slate-900/90 text-slate-800 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-800 p-4 sm:p-8 max-w-3xl shadow-xl dark:shadow-2xl space-y-6 transition-transform origin-top"
               style={{ transform: `scale(${zoom / 100})`, transformOrigin: 'top center' }}
             >
               {/* Document Header */}
-              <div className="border-b border-slate-800 pb-5 text-center sm:text-left space-y-3">
+              <div className="border-b border-slate-200 dark:border-slate-800 pb-5 text-center sm:text-left space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <div>
-                    <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                       PARAMANANTHAM S
                     </h1>
-                    <p className="text-sm font-semibold text-cyan-400 mt-0.5">
+                    <p className="text-sm font-semibold text-cyan-600 dark:text-cyan-400 mt-0.5">
                       Software Engineer &bull; Full Stack Developer
                     </p>
                   </div>
@@ -178,12 +172,12 @@ export const ResumePreviewModal: React.FC<ResumePreviewModalProps> = ({ isOpen, 
                 </div>
 
                 {/* Contact Bar */}
-                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-2 text-xs text-slate-300 font-mono">
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-2 text-xs text-slate-700 dark:text-slate-300 font-mono">
                   <a
                     href={`mailto:${socialInfo.email}`}
-                    className="flex items-center gap-1.5 hover:text-cyan-300 transition-colors"
+                    className="flex items-center gap-1.5 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors"
                   >
-                    <Mail className="w-3.5 h-3.5 text-cyan-400" />
+                    <Mail className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                     <span>{socialInfo.email}</span>
                   </a>
                   <span className="text-slate-600 hidden sm:inline">&bull;</span>
@@ -251,12 +245,12 @@ export const ResumePreviewModal: React.FC<ResumePreviewModalProps> = ({ isOpen, 
                     <p className="text-slate-400">React, TypeScript, Tailwind CSS, JavaScript (ES6+), HTML5/CSS3</p>
                   </div>
                   <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800 space-y-1">
-                    <span className="font-bold text-white block">Databases &amp; Staging</span>
-                    <p className="text-slate-400">SQL Server (SSMS), PostgreSQL, Database Schema Design, Query Optimization</p>
+                    <span className="font-bold text-white block">3rd-Party &amp; Real-Time</span>
+                    <p className="text-slate-400">LiveKit, EPIC EHR (FHIR), Convesio Pay, Swell, Google/MS Calendar, WebSockets, SSE</p>
                   </div>
                   <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800 space-y-1">
-                    <span className="font-bold text-white block">Real-Time &amp; Cloud</span>
-                    <p className="text-slate-400">WebSockets, Server-Sent Events (SSE), AWS Bedrock, AWS Cognito, Azure</p>
+                    <span className="font-bold text-white block">Databases &amp; Cloud</span>
+                    <p className="text-slate-400">SQL Server, PostgreSQL, AWS Bedrock AI, AWS Cognito, Azure</p>
                   </div>
                 </div>
               </div>
@@ -281,6 +275,7 @@ export const ResumePreviewModal: React.FC<ResumePreviewModalProps> = ({ isOpen, 
                   </div>
                   <ul className="list-disc list-inside text-xs text-slate-300 space-y-1 leading-relaxed">
                     <li>Engineered genomics-based healthcare platform with 100+ application modules and 300+ production screens.</li>
+                    <li>Integrated 3rd-party platforms: Convesio Pay (payments &amp; claims), Swell (test kit eCommerce), LiveKit (HD video consultations), Google &amp; Microsoft Calendar (auto scheduling), and EPIC EHR (clinical records).</li>
                     <li>Developed 3-role portal (Patient, Pharmacist, Admin) with live video/chat consultations and test kit workflows.</li>
                     <li>Integrated real-time WebSockets and SSE streaming for live clinician collaboration and genomic telemetry.</li>
                     <li>Integrated AWS Bedrock generative AI assistant workflows with Python/FastAPI backend and AWS Cognito auth.</li>
@@ -331,65 +326,12 @@ export const ResumePreviewModal: React.FC<ResumePreviewModalProps> = ({ isOpen, 
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs">
                   <div>
                     <span className="font-bold text-white">Bachelor of Science (B.Sc.) in Computer Science</span>
-                    <p className="text-slate-400">Government Arts &amp; Science College, Kadayanallur</p>
+                    <p className="text-slate-600 dark:text-slate-400">Government Arts &amp; Science College, Kadayanallur</p>
                   </div>
-                  <div className="text-[11px] font-mono text-cyan-300 font-semibold mt-1 sm:mt-0">
+                  <div className="text-[11px] font-mono text-cyan-700 dark:text-cyan-300 font-semibold mt-1 sm:mt-0">
                     Graduated with Distinction (84%) &bull; 2020 – 2023
                   </div>
                 </div>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'pdf' && (
-            <div className="w-full h-full flex flex-col space-y-3">
-              <div className="flex items-center justify-between text-xs text-slate-400 px-1">
-                <span>Embedded PDF Viewer</span>
-                <a
-                  href={pdfUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold"
-                >
-                  <span>Open PDF in new tab</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-              <iframe
-                src={`${pdfUrl}#toolbar=1`}
-                title="Paramanantham Official Resume PDF"
-                className="w-full h-[60vh] rounded-xl border border-slate-800 bg-slate-950 shadow-inner"
-              />
-            </div>
-          )}
-
-          {activeTab === 'docx' && (
-            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-5 bg-slate-900/60 rounded-xl border border-slate-800 min-h-[50vh]">
-              <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                <FileText className="w-7 h-7" />
-              </div>
-              <div className="max-w-md space-y-2">
-                <h3 className="text-lg font-bold text-white">Microsoft Word (.docx) Resume</h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  The verified Microsoft Word format contains complete metadata, formatting, and verified credentials. You can view the formatted interactive version above or download the official .docx file.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('formatted')}
-                  className="px-5 py-2.5 rounded-xl font-semibold text-xs text-white bg-cyan-500/20 border border-cyan-500/40 hover:bg-cyan-500/30 transition-colors"
-                >
-                  View Interactive Document
-                </button>
-                <a
-                  href={docxUrl}
-                  download={docxFileName}
-                  className="px-5 py-2.5 rounded-xl font-semibold text-xs text-white bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 transition-all flex items-center gap-2 shadow-md"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Download .docx File</span>
-                </a>
               </div>
             </div>
           )}
