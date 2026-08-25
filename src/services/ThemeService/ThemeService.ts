@@ -99,72 +99,95 @@ export class ThemeService implements ThemeServiceInterface {
   public toggleTheme(origin?: ThemeToggleOrigin): ThemeMode {
     const nextTheme: ThemeMode = this.currentTheme === 'dark' ? 'light' : 'dark';
 
-    // 60FPS GPU-accelerated circular screen reveal using View Transitions API
     if (
-      typeof document !== 'undefined' &&
-      'startViewTransition' in document &&
       origin &&
       typeof origin.x === 'number' &&
-      typeof origin.y === 'number'
+      typeof origin.y === 'number' &&
+      typeof document !== 'undefined'
     ) {
-      const { x, y } = origin;
-      const endRadius = Math.hypot(
-        Math.max(x, window.innerWidth - x),
-        Math.max(y, window.innerHeight - y)
-      );
-
-      try {
-        const doc = document as unknown as {
-          startViewTransition: (cb: () => void) => { ready: Promise<void>; finished: Promise<void> };
-        };
-
-        // Suppress layout reflows during the snapshot
-        document.documentElement.classList.add('is-theme-transitioning');
-
-        const transition = doc.startViewTransition(() => {
-          this.setTheme(nextTheme);
-        });
-
-        transition.ready
-          .then(() => {
-            const clipPath = [
-              `circle(0px at ${x}px ${y}px)`,
-              `circle(${endRadius}px at ${x}px ${y}px)`,
-            ];
-
-            const anim = document.documentElement.animate(
-              {
-                clipPath,
-              },
-              {
-                duration: 420,
-                easing: 'cubic-bezier(0.2, 0, 0, 1)',
-                pseudoElement: '::view-transition-new(root)',
-              }
-            );
-
-            anim.finished.finally(() => {
-              document.documentElement.classList.remove('is-theme-transitioning');
-            });
-          })
-          .catch((err: unknown) => {
-            document.documentElement.classList.remove('is-theme-transitioning');
-            Logger.warn('View transition animation fallback', { error: String(err) });
-          });
-
-        transition.finished.finally(() => {
-          document.documentElement.classList.remove('is-theme-transitioning');
-        });
-
-        return nextTheme;
-      } catch (err: unknown) {
-        document.documentElement.classList.remove('is-theme-transitioning');
-        Logger.warn('startViewTransition error fallback', { error: String(err) });
-      }
+      this.triggerCircularGpuBloom(origin, nextTheme);
+      return nextTheme;
     }
 
     this.setTheme(nextTheme);
     return nextTheme;
+  }
+
+  private triggerCircularGpuBloom(origin: ThemeToggleOrigin, nextTheme: ThemeMode): void {
+    if (typeof document === 'undefined') return;
+
+    const { x, y } = origin;
+    const viewportWidth =
+      typeof window !== 'undefined'
+        ? Math.max(window.visualViewport?.width || 0, window.innerWidth, document.documentElement.clientWidth || 0)
+        : 1920;
+    const viewportHeight =
+      typeof window !== 'undefined'
+        ? Math.max(window.visualViewport?.height || 0, window.innerHeight, document.documentElement.clientHeight || 0)
+        : 1080;
+
+    const originX = Math.max(0, Math.min(x, viewportWidth));
+    const originY = Math.max(0, Math.min(y, viewportHeight));
+
+    // Calculate maximum radius to any corner of the viewport + 40% margin to ensure 100% full-screen coverage
+    const maxCornerDist = Math.hypot(
+      Math.max(originX, viewportWidth - originX),
+      Math.max(originY, viewportHeight - originY)
+    );
+    const targetRadius = Math.ceil(maxCornerDist * 1.4);
+
+    const bloomEl = document.createElement('div');
+    bloomEl.setAttribute('aria-hidden', 'true');
+    bloomEl.style.position = 'fixed';
+    bloomEl.style.left = `${originX}px`;
+    bloomEl.style.top = `${originY}px`;
+    bloomEl.style.width = '20px';
+    bloomEl.style.height = '20px';
+    bloomEl.style.marginLeft = '-10px';
+    bloomEl.style.marginTop = '-10px';
+    bloomEl.style.borderRadius = '9999px';
+    bloomEl.style.pointerEvents = 'none';
+    bloomEl.style.zIndex = '999999';
+    bloomEl.style.willChange = 'transform, opacity';
+    bloomEl.style.transform = 'translate3d(0, 0, 0) scale(0)';
+    bloomEl.style.backgroundColor = nextTheme === 'dark' ? '#030712' : '#f8fafc';
+    bloomEl.style.boxShadow =
+      nextTheme === 'dark'
+        ? '0 0 60px 10px rgba(6, 182, 212, 0.45), 0 0 100px 20px rgba(99, 102, 241, 0.35)'
+        : '0 0 60px 10px rgba(99, 102, 241, 0.35), 0 0 100px 20px rgba(6, 182, 212, 0.25)';
+
+    document.body.appendChild(bloomEl);
+
+    // Apply the theme change
+    this.setTheme(nextTheme);
+
+    const cleanup = (): void => {
+      if (bloomEl.parentNode) {
+        bloomEl.parentNode.removeChild(bloomEl);
+      }
+    };
+
+    const targetScale = Math.ceil((targetRadius * 2) / 20);
+
+    if (typeof bloomEl.animate === 'function') {
+      const animation = bloomEl.animate(
+        [
+          { transform: 'translate3d(0, 0, 0) scale(0)', opacity: 1 },
+          { transform: `translate3d(0, 0, 0) scale(${targetScale * 0.85})`, opacity: 0.95, offset: 0.75 },
+          { transform: `translate3d(0, 0, 0) scale(${targetScale})`, opacity: 0 },
+        ],
+        {
+          duration: 620,
+          easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+          fill: 'forwards',
+        }
+      );
+
+      animation.onfinish = cleanup;
+      animation.oncancel = cleanup;
+    }
+
+    setTimeout(cleanup, 700);
   }
 
   public subscribe(listener: ThemeChangeListener): () => void {

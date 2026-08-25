@@ -142,14 +142,8 @@
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
-  display: block;
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  will-change: clip-path;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  height: 100%;
+  overflow: clip;
 }
 
 ::view-transition-old(root) {

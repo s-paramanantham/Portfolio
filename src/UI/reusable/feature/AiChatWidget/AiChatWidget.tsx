@@ -41,7 +41,19 @@ export const AiChatWidget: React.FC<AiChatWidgetProps> = ({ aiChatService, class
       if (typeof messagesEndRef.current?.scrollIntoView === 'function') {
         messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
       }
-      inputRef.current?.focus();
+      // Only auto-focus on desktop screens so mobile virtual keyboard does not obstruct the view
+      if (typeof window !== 'undefined' && window.innerWidth >= 640) {
+        inputRef.current?.focus();
+      }
+
+      // Lock background scroll on mobile devices while chat drawer is open
+      if (typeof window !== 'undefined' && window.innerWidth < 640) {
+        const originalOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        return () => {
+          document.body.style.overflow = originalOverflow;
+        };
+      }
     }
   }, [messages, isOpen, isTyping]);
 
@@ -58,7 +70,16 @@ export const AiChatWidget: React.FC<AiChatWidgetProps> = ({ aiChatService, class
   };
 
   return (
-    <aside aria-label="AI Portfolio Assistant" className={`fixed z-50 ${className}`}>
+    <aside aria-label="AI Portfolio Assistant" className={className}>
+      {/* Mobile Dark Backdrop Overlay with click-to-close */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-xs sm:hidden animate-fadeIn"
+          onClick={closeChat}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Floating Launcher Button */}
       <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
         {!isOpen && (
@@ -99,9 +120,9 @@ export const AiChatWidget: React.FC<AiChatWidgetProps> = ({ aiChatService, class
         </button>
       </div>
 
-      {/* Floating Chat Panel */}
+      {/* Responsive Chat Panel: Centered on Mobile, Viewport-Safe Bottom-Right Docked on Desktop */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[420px] max-w-[440px] h-[560px] max-h-[calc(100vh-8rem)] flex flex-col rounded-3xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl transition-all duration-300 animate-scaleUp">
+        <div className="fixed inset-x-3.5 inset-y-6 my-auto sm:my-0 sm:inset-auto sm:bottom-24 sm:right-6 z-50 w-auto sm:w-[420px] max-w-[440px] h-[min(540px,calc(100dvh-7.5rem))] max-h-[calc(100dvh-7.5rem)] flex flex-col rounded-3xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 bg-white/98 dark:bg-slate-950/98 backdrop-blur-2xl transition-all duration-300 animate-scaleUp">
           {/* Header */}
           <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/60 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -147,7 +168,7 @@ export const AiChatWidget: React.FC<AiChatWidgetProps> = ({ aiChatService, class
           </div>
 
           {/* Chat Messages List */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+          <div className="flex-1 min-h-0 overflow-y-auto p-3.5 sm:p-4 space-y-4 custom-scrollbar">
             {messages.map((msg) => {
               const isUser = msg.sender === 'user';
               return (
