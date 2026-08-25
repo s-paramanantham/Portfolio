@@ -19,11 +19,11 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
     if (isBooming) return;
 
     setIsBooming(true);
-    setTimeout(() => setIsBooming(false), 450);
+    setTimeout(() => setIsBooming(false), 600);
 
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX || rect.left + rect.width / 2;
-    const y = e.clientY || rect.top + rect.height / 2;
+    const x = e.clientX && e.clientX > 0 ? e.clientX : rect.left + rect.width / 2;
+    const y = e.clientY && e.clientY > 0 ? e.clientY : rect.top + rect.height / 2;
 
     toggleTheme({ x, y });
   };

@@ -83,55 +83,61 @@ export const useAiChatWidgetViewModel = (
     [inputQuery, isTyping, aiChatService]
   );
 
-  const handleActionClick = useCallback((action: ChatActionBo): void => {
-    if (action.actionType === 'navigate') {
-      if (action.target === '#genomics') {
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(
-            new CustomEvent('portfolio:switch-project-view', { detail: { view: 'genomics' } })
-          );
+  const handleActionClick = useCallback(
+    (action: ChatActionBo): void => {
+      if (action.actionType === 'navigate') {
+        // Automatically close chat window so the user sees the target section
+        closeChat();
+
+        if (action.target === '#genomics') {
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(
+              new CustomEvent('portfolio:switch-project-view', { detail: { view: 'genomics' } })
+            );
+          }
+          const element = document.querySelector('#projects');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            element.classList.add('ring-2', 'ring-cyan-400', 'ring-offset-4');
+            setTimeout(() => {
+              element.classList.remove('ring-2', 'ring-cyan-400', 'ring-offset-4');
+            }, 1500);
+          }
+          return;
         }
-        const element = document.querySelector('#projects');
+
+        if (action.target === '#migration') {
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(
+              new CustomEvent('portfolio:switch-project-view', { detail: { view: 'migration' } })
+            );
+          }
+          const element = document.querySelector('#projects');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            element.classList.add('ring-2', 'ring-indigo-400', 'ring-offset-4');
+            setTimeout(() => {
+              element.classList.remove('ring-2', 'ring-indigo-400', 'ring-offset-4');
+            }, 1500);
+          }
+          return;
+        }
+
+        const element = document.querySelector(action.target);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Subtle highlight pulse for 1.5 seconds
           element.classList.add('ring-2', 'ring-cyan-400', 'ring-offset-4');
           setTimeout(() => {
             element.classList.remove('ring-2', 'ring-cyan-400', 'ring-offset-4');
           }, 1500);
         }
-        return;
+      } else if (action.actionType === 'external') {
+        window.open(action.target, '_blank', 'noopener,noreferrer');
       }
-
-      if (action.target === '#migration') {
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(
-            new CustomEvent('portfolio:switch-project-view', { detail: { view: 'migration' } })
-          );
-        }
-        const element = document.querySelector('#projects');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          element.classList.add('ring-2', 'ring-indigo-400', 'ring-offset-4');
-          setTimeout(() => {
-            element.classList.remove('ring-2', 'ring-indigo-400', 'ring-offset-4');
-          }, 1500);
-        }
-        return;
-      }
-
-      const element = document.querySelector(action.target);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Subtle highlight pulse for 1.5 seconds
-        element.classList.add('ring-2', 'ring-cyan-400', 'ring-offset-4');
-        setTimeout(() => {
-          element.classList.remove('ring-2', 'ring-cyan-400', 'ring-offset-4');
-        }, 1500);
-      }
-    } else if (action.actionType === 'external') {
-      window.open(action.target, '_blank', 'noopener,noreferrer');
-    }
-  }, []);
+    },
+    [closeChat]
+  );
 
   return {
     isOpen,
